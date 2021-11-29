@@ -1,0 +1,9 @@
+{
+  "projectId": "supabase-bootstrap",
+  "ports": {
+    "api": 54321,
+    "db": 54322,
+    "pgMeta": 54323
+  },
+  "dbVersion": "130003"
+}
