@@ -1,14 +1,14 @@
 #!/usr/bin/env make
 
-.PHONY: start
+.PHONY: up
 
-default: start
+default: up
 
 # ---------------------------------------------------------------------------------------------------------------------
 # SETUP
 # ---------------------------------------------------------------------------------------------------------------------
 
 
-start:
+up:
 	echo "Build and start supabase services..."
-	supabase start
+	docker-compose up

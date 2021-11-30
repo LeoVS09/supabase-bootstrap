@@ -2,6 +2,8 @@
 
 Bootstrap for local supabase development and experiments
 
+Base on [this guide](https://supabase.com/docs/guides/hosting/docker).
+
 ## Requirements
 
 * Docker - for start services locally
@@ -12,5 +14,9 @@ Bootstrap for local supabase development and experiments
 For build and start supabase services simply run
 
 ```bash
-make
+# Copy example `.env`
+cp .env.example .env
+
+# Start services
+make # or docker-compose up
 ```
