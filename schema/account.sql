@@ -40,7 +40,7 @@ create or replace function add_new_account_or_assign_existing()
       return new;
 
     else 
-      insert into account_users (user_id, account_id) values (new.id, new.raw_user_meta_data ->> 'account_id');
+      insert into account_users (user_id, account_id) values (new.id, uuid(new.raw_user_meta_data ->> 'account_id'));
       return new;
 
     end if;

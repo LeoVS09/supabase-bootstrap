@@ -28,7 +28,7 @@ describe('profiles', () => {
         expect(data?.filter(user => user.email == email).length !== 0).toBe(true)
     })
 
-    test('profile trigger correct', async () => {
+    test('trigger correct', async () => {
         const users = await supabase.auth.api.listUsers()
         
         const {data, error} = await supabase
