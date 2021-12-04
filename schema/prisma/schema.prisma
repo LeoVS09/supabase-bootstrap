@@ -13,7 +13,6 @@ model Post {
   content   String?
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
-  short_name String?
   authorId  Int?
 }
 
