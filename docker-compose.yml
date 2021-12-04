@@ -140,7 +140,8 @@ services:
 
   db:
     container_name: supabase-db
-    image: supabase/postgres:13.3.0
+    # image: supabase/postgres:13.3.0
+    image: leovs09/supabase-postgres:13.3.0-debug # for allow debug through pgAdmin
     command: postgres -c wal_level=logical
     restart: unless-stopped
     ports:

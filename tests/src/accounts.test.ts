@@ -1,8 +1,8 @@
 import { User } from "@supabase/supabase-js"
-import { supabase} from "./supabase-client"
+import { supabase } from "./supabase-client"
 
 
-describe('profiles', () => {
+describe('accounts', () => {
 
     const username = `test_${Math.random().toString().slice(2)}`
     const email = `${username}@test.com`
@@ -28,18 +28,16 @@ describe('profiles', () => {
         expect(data?.filter(user => user.email == email).length !== 0).toBe(true)
     })
 
-    test('profile trigger correct', async () => {
-        const users = await supabase.auth.api.listUsers()
-        
+    test('account trigger correct', async () => {
         const {data, error} = await supabase
-            .from('profiles')
-            .select()
-            .eq('id', user.id)
+            .from('accounts')
+            .select('*, account_users!inner(*)')
+            .eq('account_users.user_id', user.id)
             .single()
 
         expect(error).toBeNull()
         expect(data).not.toBeNull()
-        expect(data.username).toBe(email)
+        expect(data.name).toBe(email)
     })
 
     

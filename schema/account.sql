@@ -34,7 +34,7 @@ create or replace function add_new_account_or_assign_existing()
    new_account_id uuid := null;
   begin
 
-    if new.raw_user_meta_data ->> 'account_id' = null then
+    if new.raw_user_meta_data ->> 'account_id' is null then
       insert into accounts (name) values (new.email) returning id into new_account_id;
       insert into account_users (user_id, account_id) values (new.id, new_account_id);
       return new;
