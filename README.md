@@ -20,3 +20,7 @@ cp .env.example .env
 # Start services
 make # or docker-compose up
 ```
+
+## TODO
+
+* Add triggert for update updated_at on changes
