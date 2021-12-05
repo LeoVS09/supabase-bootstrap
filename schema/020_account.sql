@@ -3,7 +3,7 @@
 create table if not exists accounts  (
   id uuid default uuid_generate_v4() primary key,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  updated_at timestamp with time zone,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
 
   name text,
   constraint name_length check (char_length(name) >= 5 and char_length(name) <= 255)
@@ -11,16 +11,31 @@ create table if not exists accounts  (
 
 comment on table accounts is 'Multi-tenant company or organisation account';
 
+-- Automatically set updated_at for account
+drop trigger if exists set_account_updated_at on accounts;
+
+create trigger set_account_updated_at before update on accounts
+for each row execute procedure set_updated_at();
+
 alter table accounts enable row level security;
 
 create table if not exists account_users (
   user_id uuid references auth.users not null,
   account_id uuid references accounts not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
 
   primary key (user_id, account_id)
 );
 
 comment on table account_users is 'User and account linking';
+
+
+-- Automatically set updated_at for account_users
+drop trigger if exists set_account_users_updated_at on account_users;
+
+create trigger set_account_users_updated_at before update on account_users
+for each row execute procedure set_updated_at();
 
 alter table account_users enable row level security;
 

@@ -1,9 +1,9 @@
 
 -- Additional profile data
-create table if not exists public.profiles (
+create table if not exists profiles (
   id uuid references auth.users not null,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  updated_at timestamp with time zone,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
   username text unique not null,
   avatar_url text,
 
@@ -11,9 +11,15 @@ create table if not exists public.profiles (
   constraint username_length check (char_length(username) >= 5)
 );
 
-comment on table public.profiles is 'Profile data for each user.';
+comment on table profiles is 'Profile data for each user.';
 
-alter table public.profiles enable row level security;
+-- Automatically set updated_at for profiles
+drop trigger if exists set_profiles_updated_at on profiles;
+
+create trigger set_profiles_updated_at before update on profiles
+for each row execute procedure set_updated_at();
+
+alter table profiles enable row level security;
 
 drop policy if exists "Users can view their own profile." on profiles;
 
