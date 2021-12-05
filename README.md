@@ -8,6 +8,8 @@ Base on [this guide](https://supabase.com/docs/guides/hosting/docker).
 
 Schema example consists of multitenant accounts (organisations or company accounts) which can contain multiple users. And profiles which linked to each user, for additional user data.
 
+You can see full schema at `./volumes/db/init`
+
 ## Requirements
 
 * Docker - for start services locally
@@ -24,10 +26,6 @@ cp .env.example .env
 # Start services
 make # or docker-compose up
 ```
-
-### Setup database
-
-Run `*.sql` queries from `schema/` to postgres database. Connection string by default look like `postgres://postgres:your-super-secret-and-long-postgres-password@localhost:5432/postgres`.
 
 After that you can test your database-supabase setup in `tests/` folder
 
