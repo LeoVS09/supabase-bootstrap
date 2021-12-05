@@ -29,8 +29,6 @@ describe('profiles', () => {
     })
 
     test('trigger correct', async () => {
-        const users = await supabase.auth.api.listUsers()
-        
         const {data, error} = await supabase
             .from('profiles')
             .select()
