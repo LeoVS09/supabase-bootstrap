@@ -63,6 +63,10 @@ npm start
 
 Follow instructions in console
 
+### Open emain
+
+Registration email will be send to local SMTP server, you can see Web UI in <http://localhost:9000>
+
 ### Known Issues
 
 If you getting error `If a new foreign key between these entities was created in the database, try reloading the schema cache.` then restart rest service

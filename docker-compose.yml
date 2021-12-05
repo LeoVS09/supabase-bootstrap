@@ -35,11 +35,20 @@ services:
     volumes:
       - ./volumes/api/kong.yml:/var/lib/kong/kong.yml
 
+  mail:
+    container_name: supabase-mail
+    image: inbucket/inbucket:stable
+    ports:
+      - '2500:2500' # SMTP
+      - '9000:9000' # web interface
+      - '1100:1100' # POP3
+
   auth:
     container_name: supabase-auth
     image: supabase/gotrue:v2.2.6
     depends_on:
       - db
+      - mail
     restart: unless-stopped
     environment:
       GOTRUE_API_HOST: 0.0.0.0
@@ -130,6 +139,8 @@ services:
   meta:
     container_name: supabase-meta
     image: supabase/postgres-meta:v0.29.0
+    ports:
+      - 5555:8080
     depends_on:
       - db
     restart: unless-stopped
